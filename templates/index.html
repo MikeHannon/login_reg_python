@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+
+  input {
+    display:block;
+    width: 60%;
+  }
+  input[type="submit"]{
+    width: 20%;
+    border: 1px solid black;
+    margin: 5px;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Our Awesome Login Page</h1>
+  </header>
+  <div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages[0] %}
+      {{messages[0]['register']}}
+      {%endif%}
+    {% endwith %}
+    <form action="/login" method = "post">
+      <fieldset>
+      <legend>Login Here:</legend>
+        <input type="email" name = "email" placeholder = "johndoe@somewhere.com">
+        <input type="password" name = "password" placeholder = "password">
+        <input type="submit" value = "Login" >
+    </fieldset>
+    </form>
+
+  </div>
+  {% with messages = get_flashed_messages() %}
+  {% if messages[0] %}
+    {{messages[0]['success']}}
+    {%endif%}
+  {% endwith %}
+  <form action="/register" method = "post">
+
+    <fieldset>
+    <legend>New? Register Here:</legend>
+
+      <input type="text" name = "first_name" placeholder = "first name">
+      {% with messages = get_flashed_messages() %}
+      {% if messages[0] %}
+        {{messages[0]['first_name_exist']}}
+        {{messages[0]['first_name_alpha']}}
+      {% endif %}
+      {% endwith %}
+      <input type="text" name = "last_name" placeholder = "last name">
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages[0] %}
+          {{messages[0]['last_name_exist']}}
+        {% endif %}
+      {% endwith %}
+      <input type="email" name = "email" placeholder = "johndoe@somewhere.com">
+      {% with messages = get_flashed_messages() %}
+        {% if messages[0] %}
+          {{messages[0]['email']}}
+        {% endif %}
+      {% endwith %}
+      <input type="password" name = "password" placeholder = "password">
+      {% with messages = get_flashed_messages() %}
+        {% if messages[0] %}
+          {{messages[0]['password_length']}}
+          {{messages[0]['password_match']}}
+        {% endif %}
+      {% endwith %}
+      <input type="password" name = "confirm_password" placeholder = "confirm password">
+      {% with messages = get_flashed_messages() %}
+        {% if messages[0] %}
+          {{messages[0]['user_exists']}}
+        {% endif %}
+      {% endwith %}
+      <input type="submit" value = "Register" >
+    </fieldset>
+  </form>
+  <a href = '/reset'>RESET</a>
+</body>
+</html>
